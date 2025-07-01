@@ -1,0 +1,715 @@
+/* Basic Reset & Font Import */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif; /* Primary font for general text */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: var(--background-gradient); /* CSS variable for gradient */
+    color: var(--text-color); /* CSS variable for text color */
+    transition: background 0.8s ease, color 0.8s ease; /* Smoother theme transition */
+    overflow: hidden; /* Prevent scroll for subtle background */
+    position: relative;
+    padding: 20px; /* Add padding for smaller screens */
+}
+
+/* CSS Variables for Theme */
+:root {
+    /* Light Theme Colors */
+    --background-gradient: linear-gradient(135deg, #f8f9fa, #e9ecef); /* Soft, very light grey/blue gradient */
+    --container-bg: rgba(255, 255, 255, 0.4); /* Slightly more opaque glass */
+    --border-color: rgba(255, 255, 255, 0.6); /* Clearer border */
+    --shadow-color-light: rgba(0, 0, 0, 0.12);
+    --shadow-color-dark: rgba(0, 0, 0, 0.35);
+    --text-color: #343a40; /* Dark grey for general text */
+    --display-color: #212529; /* Very dark grey for display */
+    --button-text-color: #fff;
+    --lap-item-bg: rgba(255, 255, 255, 0.25);
+    --lap-item-border: rgba(255, 255, 255, 0.5);
+    --lap-number-color: #007bff; /* Vibrant blue for lap numbers */
+    --lap-name-color: #6c757d; /* Muted grey for lap name */
+
+    /* Button Gradients & Glows (Light Theme) */
+    --button-bg-start: linear-gradient(145deg, #28a745, #218838); /* Stronger Green */
+    --glow-color-start: #28a745;
+    --button-bg-pause: linear-gradient(145deg, #ffc107, #e0a800); /* Vibrant Orange */
+    --glow-color-pause: #ffc107;
+    --button-bg-lap: linear-gradient(145deg, #17a2b8, #138496); /* Teal */
+    --glow-color-lap: #17a2b8;
+    --button-bg-reset: linear-gradient(145deg, #dc3545, #c82333); /* Bold Red */
+    --glow-color-reset: #dc3545;
+    --button-bg-clear: linear-gradient(145deg, #6c757d, #5a6268); /* Darker Grey */
+    --glow-color-clear: #6c757d;
+}
+
+/* Dark Theme */
+body.dark-theme {
+    /* Dark Theme Colors */
+    --background-gradient: linear-gradient(135deg, #212529, #343a40); /* Deep charcoal to dark grey gradient */
+    --container-bg: rgba(0, 0, 0, 0.6); /* Darker, more subtle glass */
+    --border-color: rgba(255, 255, 255, 0.2);
+    --shadow-color-light: rgba(0, 0, 0, 0.5);
+    --shadow-color-dark: rgba(0, 0, 0, 0.8);
+    --text-color: #f8f9fa; /* Light text for dark theme */
+    --display-color: #f8f9fa; /* Light display text */
+    --button-text-color: #fff;
+    --lap-item-bg: rgba(255, 255, 255, 0.1); /* Very subtle lap item bg */
+    --lap-item-border: rgba(255, 255, 255, 0.15);
+    --lap-number-color: #6cb6ff; /* Lighter blue for dark theme laps */
+    --lap-name-color: #ced4da; /* Lighter grey for dark theme lap name */
+
+    /* Button Gradients & Glows (Dark Theme) */
+    --button-bg-start: linear-gradient(145deg, #2ecc71, #27ae60); /* Same vibrant green */
+    --glow-color-start: #2ecc71;
+    --button-bg-pause: linear-gradient(145deg, #f39c12, #e67e22); /* Same vibrant orange */
+    --glow-color-pause: #f39c12;
+    --button-bg-lap: linear-gradient(145deg, #3498db, #2980b9); /* Same classic blue */
+    --glow-color-lap: #3498db;
+    --button-bg-reset: linear-gradient(145deg, #e74c3c, #c0392b); /* Same strong red */
+    --glow-color-reset: #e74c3c;
+    --button-bg-clear: linear-gradient(145deg, #bdc3c7, #95a5a6); /* Same soft grey */
+    --glow-color-clear: #bdc3c7;
+}
+
+/* Glassmorphism Container */
+.container {
+    background: var(--container-bg);
+    border-radius: 25px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 40px 0 var(--shadow-color-dark);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    max-width: 550px;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    animation: slideIn 0.8s ease-out forwards;
+}
+
+/* Initial slide-in animation for the container */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+h1 {
+    font-size: 2.8em;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-shadow: 2px 2px 4px var(--shadow-color-light);
+    color: var(--display-color);
+}
+
+/* Stopwatch Display */
+.stopwatch-display {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 4em;
+    font-weight: 700;
+    color: var(--display-color);
+    background: rgba(0, 0, 0, 0.03);
+    padding: 20px 30px;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    box-shadow: inset 0 0 15px var(--shadow-color-light);
+    min-width: 380px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: 1px;
+    line-height: 1.2;
+    /* Blinking effect for the display area */
+    animation: pulse-display 2s infinite alternate ease-in-out;
+}
+
+/* Keyframes for display blinking effect */
+@keyframes pulse-display {
+    0% {
+        box-shadow: inset 0 0 15px var(--shadow-color-light);
+        opacity: 1;
+    }
+    50% {
+        box-shadow: inset 0 0 25px var(--glow-color-lap), 0 0 10px var(--glow-color-lap); /* Subtle glow */
+        opacity: 0.98;
+    }
+    100% {
+        box-shadow: inset 0 0 15px var(--shadow-color-light);
+        opacity: 1;
+    }
+}
+
+
+#milliseconds {
+    font-size: 0.5em;
+    vertical-align: super;
+    min-width: 3ch;
+    opacity: 0.8;
+}
+
+/* Control Buttons */
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 18px;
+    width: 100%;
+}
+
+.controls button, .theme-toggle, #clearLapsBtn {
+    padding: 15px 30px;
+    border: none;
+    border-radius: 15px;
+    font-size: 1.15em;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: var(--button-text-color);
+    box-shadow: 0 6px 20px var(--shadow-color-dark);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    background-size: 200% auto;
+    flex: 1 1 auto;
+    min-width: 140px;
+}
+
+.controls button:hover, .theme-toggle:hover, #clearLapsBtn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px var(--shadow-color-dark);
+    background-position: right center;
+}
+
+.controls button:active, .theme-toggle:active, #clearLapsBtn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px var(--shadow-color-dark);
+    background-position: left center;
+}
+
+/* Specific Button Styles */
+#startPauseBtn {
+    background-image: var(--button-bg-start);
+}
+
+#startPauseBtn.paused {
+    background-image: var(--button-bg-pause);
+}
+
+#lapBtn {
+    background-image: var(--button-bg-lap);
+}
+
+#resetBtn {
+    background-image: var(--button-bg-reset);
+}
+
+#clearLapsBtn {
+    background-image: var(--button-bg-clear);
+    margin-top: 20px;
+    width: 100%;
+}
+
+/* Disabled Button Styles */
+.controls button:disabled, #clearLapsBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.1);
+    transform: none;
+    background-image: linear-gradient(135deg, #c0c0c0, #d0d0d0);
+    color: #888;
+}
+
+body.dark-theme .controls button:disabled, body.dark-theme #clearLapsBtn:disabled {
+    background-image: linear-gradient(135deg, #444, #555);
+    color: #aaa;
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Button Glow Effect (Refined) */
+.controls button:not(:disabled)::before,
+.theme-toggle::before,
+#clearLapsBtn:not(:disabled)::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle at center, var(--glow-color-start) 0%, transparent 70%);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+    transition: width 0.4s ease-out, height 0.4s ease-out, opacity 0.4s ease-out, transform 0.4s ease-out;
+    z-index: -1;
+    border-radius: 50%;
+}
+
+.controls button:not(:disabled):hover::before,
+.theme-toggle:hover::before,
+#clearLapsBtn:not(:disabled):hover::before {
+    width: 150%;
+    height: 150%;
+    opacity: 0.4;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Specific glow colors for each button */
+#startPauseBtn:not(:disabled)::before { background: radial-gradient(circle at center, var(--glow-color-start) 0%, transparent 70%); }
+#startPauseBtn.paused:not(:disabled)::before { background: radial-gradient(circle at center, var(--glow-color-pause) 0%, transparent 70%); }
+#lapBtn:not(:disabled)::before { background: radial-gradient(circle at center, var(--glow-color-lap) 0%, transparent 70%); }
+#resetBtn:not(:disabled)::before { background: radial-gradient(circle at center, var(--glow-color-reset) 0%, transparent 70%); }
+#clearLapsBtn:not(:disabled)::before { background: radial-gradient(circle at center, var(--glow-color-clear) 0%, transparent 70%); }
+
+
+/* Blinking effect for active buttons */
+/* This class will be added/removed by JavaScript when the stopwatch is running */
+.controls button.active-blink:not(:disabled) {
+    animation: pulse-button 1.5s infinite alternate ease-in-out;
+}
+
+/* Keyframes for button blinking effect */
+@keyframes pulse-button {
+    0% {
+        box-shadow: 0 6px 20px var(--shadow-color-dark);
+        transform: translateY(0);
+    }
+    50% {
+        box-shadow: 0 8px 25px var(--glow-color-start), 0 0 15px var(--glow-color-start); /* Use start glow color for generic pulse */
+        transform: translateY(-2px);
+    }
+    100% {
+        box-shadow: 0 6px 20px var(--shadow-color-dark);
+        transform: translateY(0);
+    }
+}
+
+/* Specific pulse colors for start/pause button */
+#startPauseBtn.active-blink:not(:disabled) {
+    animation: pulse-start-pause-button 1.5s infinite alternate ease-in-out;
+}
+
+@keyframes pulse-start-pause-button {
+    0% {
+        box-shadow: 0 6px 20px var(--shadow-color-dark);
+        transform: translateY(0);
+    }
+    50% {
+        box-shadow: 0 8px 25px var(--glow-color-start), 0 0 15px var(--glow-color-start);
+        transform: translateY(-2px);
+    }
+    100% {
+        box-shadow: 0 6px 20px var(--shadow-color-dark);
+        transform: translateY(0);
+    }
+}
+
+#startPauseBtn.paused.active-blink:not(:disabled) {
+    animation: pulse-paused-button 1.5s infinite alternate ease-in-out;
+}
+
+@keyframes pulse-paused-button {
+    0% {
+        box-shadow: 0 6px 20px var(--shadow-color-dark);
+        transform: translateY(0);
+    }
+    50% {
+        box-shadow: 0 8px 25px var(--glow-color-pause), 0 0 15px var(--glow-color-pause);
+        transform: translateY(-2px);
+    }
+    100% {
+        box-shadow: 0 6px 20px var(--shadow-color-dark);
+        transform: translateY(0);
+    }
+}
+
+
+/* Lap Times Section */
+.laps-section {
+    width: 100%;
+    margin-top: 25px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 20px;
+    padding: 25px;
+    border: 1px solid var(--border-color);
+    box-shadow: inset 0 0 15px var(--shadow-color-light);
+    max-height: 280px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.laps-section h2 {
+    font-size: 1.6em;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.lap-list {
+    list-style: none;
+    width: 100%;
+    padding-right: 10px;
+}
+
+/* Scrollbar Styling for Lap Container */
+.laps-section::-webkit-scrollbar {
+    width: 8px;
+}
+
+.laps-section::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+}
+
+.laps-section::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    transition: background 0.3s ease;
+}
+
+.laps-section::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme .laps-section::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-theme .laps-section::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+body.dark-theme .laps-section::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+
+.lap-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 18px;
+    margin-bottom: 10px;
+    background: var(--lap-item-bg);
+    border-radius: 12px;
+    border: 1px solid var(--lap-item-border);
+    box-shadow: 0 3px 10px var(--shadow-color-light);
+    font-size: 1.05em;
+    color: var(--text-color);
+    animation: fadeIn 0.6s ease-out;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.lap-list li:last-child {
+    margin-bottom: 0;
+}
+
+.lap-list li:hover {
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 5px 15px var(--shadow-color-dark);
+}
+
+body.dark-theme .lap-list li:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.lap-list li .lap-number {
+    font-weight: 600;
+    color: var(--lap-number-color);
+    margin-right: 15px;
+    min-width: 60px;
+}
+
+.lap-list li .lap-name {
+    font-style: italic;
+    color: var(--lap-name-color);
+    flex-grow: 1;
+    text-align: left;
+    margin-right: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.lap-list li .lap-time {
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 600;
+    color: var(--display-color);
+    min-width: 120px;
+    text-align: right;
+}
+
+/* Input field for editing lap name */
+.lap-name-input {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 5px 8px;
+    font-size: 1em;
+    font-family: 'Inter', sans-serif;
+    color: #333;
+    outline: none;
+    flex-grow: 1;
+    margin-right: 15px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-theme .lap-name-input {
+    background: rgba(0, 0, 0, 0.6);
+    color: #ecf0f1;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Keyframe for fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Theme Toggle Button */
+#theme-toggle {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    background: var(--container-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 0;
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    font-size: 1.3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 15px var(--shadow-color-dark);
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+#theme-toggle:hover {
+    transform: rotate(20deg) scale(1.05);
+    box-shadow: 0 6px 20px var(--shadow-color-dark);
+}
+
+#theme-toggle:active {
+    transform: rotate(0deg) scale(0.95);
+    box-shadow: inset 0 0 10px var(--shadow-color-dark);
+}
+
+/* Optional: Subtle Background Animation */
+body::before, body::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.1;
+    filter: blur(50px);
+    z-index: 0;
+}
+
+body::before {
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(135deg, #a2d2ff, #bde0fe); /* Light blue for light theme */
+    top: -50px;
+    left: -50px;
+    animation: floatOne 25s infinite alternate ease-in-out;
+}
+
+body::after {
+    width: 400px;
+    height: 400px;
+    background: linear-gradient(135deg, #ffc8dd, #ffafcc); /* Light pink for light theme */
+    bottom: -80px;
+    right: -80px;
+    animation: floatTwo 30s infinite alternate-reverse ease-in-out;
+}
+
+body.dark-theme::before {
+    background: linear-gradient(135deg, #4895ef, #4361ee); /* Deeper blue for dark theme */
+}
+
+body.dark-theme::after {
+    background: linear-gradient(135deg, #f72585, #7209b7); /* Vibrant pink/purple for dark theme */
+}
+
+@keyframes floatOne {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(100px, 100px) scale(1.1); }
+}
+
+@keyframes floatTwo {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-150px, -150px) scale(1.2); }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+    .container {
+        padding: 30px;
+        gap: 25px;
+        border-radius: 20px;
+    }
+
+    h1 {
+        font-size: 2.2em;
+    }
+
+    .stopwatch-display {
+        font-size: 3em;
+        min-width: unset;
+        width: 100%;
+        padding: 15px 20px;
+        border-radius: 15px;
+    }
+
+    #milliseconds {
+        font-size: 0.45em;
+    }
+
+    .controls {
+        gap: 12px;
+    }
+
+    .controls button {
+        width: calc(50% - 6px);
+        font-size: 1em;
+        padding: 12px 20px;
+        border-radius: 12px;
+        min-width: unset;
+    }
+
+    #clearLapsBtn {
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    .laps-section {
+        padding: 20px;
+        max-height: 250px;
+        border-radius: 15px;
+    }
+
+    .laps-section h2 {
+        font-size: 1.4em;
+        margin-bottom: 10px;
+    }
+
+    .lap-list li {
+        padding: 10px 15px;
+        font-size: 0.95em;
+        border-radius: 10px;
+    }
+
+    .lap-list li .lap-number {
+        min-width: 50px;
+        margin-right: 10px;
+    }
+
+    .lap-list li .lap-name {
+        margin-right: 10px;
+    }
+
+    .lap-list li .lap-time {
+        min-width: 100px;
+    }
+
+    #theme-toggle {
+        top: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.2em;
+    }
+}
+
+@media (max-width: 400px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 25px;
+        gap: 20px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    .stopwatch-display {
+        font-size: 2.5em;
+        padding: 10px 15px;
+    }
+
+    .controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .controls button {
+        width: 100%;
+        font-size: 0.9em;
+        padding: 10px 15px;
+    }
+
+    .laps-section {
+        padding: 15px;
+        max-height: 200px;
+    }
+
+    .laps-section h2 {
+        font-size: 1.2em;
+    }
+
+    .lap-list li {
+        font-size: 0.85em;
+        padding: 8px 12px;
+    }
+
+    .lap-list li .lap-number {
+        min-width: 45px;
+    }
+
+    .lap-list li .lap-time {
+        min-width: 90px;
+    }
+
+    #theme-toggle {
+        width: 45px;
+        height: 45px;
+        font-size: 1.1em;
+        top: 15px;
+        right: 15px;
+    }
+}

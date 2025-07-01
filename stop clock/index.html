@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aesthetic Stopwatch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light theme">
+            <i class="fas fa-moon"></i>
+        </button>
+
+        <h1>Stopwatch</h1>
+
+        <div class="stopwatch-display">
+            <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>.<span id="milliseconds">000</span>
+        </div>
+
+        <div class="controls">
+            <button id="startPauseBtn" aria-label="Start or Pause stopwatch">
+                <i class="fas fa-play"></i> Start
+            </button>
+            <button id="lapBtn" disabled aria-label="Record lap time">
+                <i class="fas fa-flag"></i> Lap
+            </button>
+            <button id="resetBtn" disabled aria-label="Reset stopwatch">
+                <i class="fas fa-redo-alt"></i> Reset
+            </button>
+        </div>
+
+        <div class="laps-section">
+            <h2>Lap Times</h2>
+            <ul id="lapList" class="lap-list">
+                </ul>
+            <button id="clearLapsBtn" disabled aria-label="Clear all lap times">
+                <i class="fas fa-times-circle"></i> Clear Laps
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
