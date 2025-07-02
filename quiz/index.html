@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Quiz Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="theme-toggle" id="themeToggle">
+            <div class="slider"></div>
+        </div>
+        <div class="quiz-header">
+            <h1>Interactive Quiz</h1>
+            <p>Question <span id="currentQuestionNumber">1</span> of <span id="totalQuestions"></span></p>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </div>
+
+        <div class="timer-container">
+            <div class="timer-bar" id="timerBar"></div>
+        </div>
+
+        <div class="question-card" id="questionCard">
+            <h2 id="questionText"></h2>
+            <div class="options-container" id="optionsContainer">
+                <!-- Options will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <div class="quiz-navigation">
+            <button class="quiz-button" id="nextButton">Next</button>
+            <button class="quiz-button blinking" id="restartButton">Restart Quiz</button>
+        </div>
+    </div>
+
+    <!-- Score Modal -->
+    <div class="score-modal-overlay" id="scoreModalOverlay">
+        <div class="score-modal-content">
+            <div class="confetti-glow" id="confettiGlow"></div>
+            <h3>Quiz Completed!</h3>
+            <p>Your Score:</p>
+            <div class="score-display" id="finalScore">0 / 0</div>
+            <button class="quiz-button" id="modalRestartButton">Play Again</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
